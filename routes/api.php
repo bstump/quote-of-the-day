@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'quotes'], function () {
+    Route::get('/quotd', 'App\Http\Controllers\QuoteController@quotd');
+    Route::get('/random', 'App\Http\Controllers\QuoteController@random');
+    Route::get('/search', 'App\Http\Controllers\QuoteController@search');
 });
