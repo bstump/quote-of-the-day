@@ -28,7 +28,7 @@ class Quotes extends Controller
     public function setQuotes($quotes) {
         $get_quotes = config('quotes');
         $get_quotes['quotes'] = $quotes;
-    
+
         $save_quotes = var_export($get_quotes, 1);
         File::put(config_path() . '/quotes.php', "<?php\n return $save_quotes ;");
 

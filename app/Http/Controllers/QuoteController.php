@@ -11,23 +11,21 @@ class QuoteController extends Controller
      * Return the quote of the day
      */
     public function quotd() {
+        $requested_date = (request()->has('d')) ? request()->input('d').'_qotd' : date('Y-m-d').'_qotd';
         $quotes = config('quotes');
-        $qotd_today = date('Ymd').'_qotd';
-        $qotd_yesterday = date('Ymd', strtotime("-1 days")).'_qotd';
         $random_number = rand(0, (count($quotes['quotes'])-1));
 
-        if (!Cache::get($qotd_today)) {
+        if (!Cache::get($requested_date)) {
             Cache::put(
-                $qotd_today,
+                $requested_date,
                 $quotes['quotes'][$random_number],
                 strtotime('tomorrow') - time()
             );
-            Cache::forget($qotd_yesterday);
         }
 
         return response()->json(
             Cache::get(
-                $qotd_today
+                $requested_date
             )
         );
     }
