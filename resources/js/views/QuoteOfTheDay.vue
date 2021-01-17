@@ -24,7 +24,7 @@
             </div>
             <div
                 v-if="!loading && quote"
-                class="row"
+                class="row mt-5"
             >
                 <div class="col-sm-12 col-md-6 offset-md-3 mt-5">
                     <blockquote class="blockquote">
@@ -39,7 +39,7 @@
             </div>
             <div
                 v-else
-                class="row"
+                class="row mt-5"
             >
                 <div
                     v-if="loading"

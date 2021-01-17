@@ -37451,7 +37451,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       !_vm.loading && _vm.quote
-        ? _c("div", { staticClass: "row" }, [
+        ? _c("div", { staticClass: "row mt-5" }, [
             _c("div", { staticClass: "col-sm-12 col-md-6 offset-md-3 mt-5" }, [
               _c("blockquote", { staticClass: "blockquote" }, [
                 _c("p", [
@@ -37476,7 +37476,7 @@ var render = function() {
               ])
             ])
           ])
-        : _c("div", { staticClass: "row" }, [
+        : _c("div", { staticClass: "row mt-5" }, [
             _vm.loading
               ? _c("div", { staticClass: "col text-center" }, [
                   _c("em", [
