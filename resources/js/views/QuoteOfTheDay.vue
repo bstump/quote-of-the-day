@@ -93,6 +93,9 @@ export default {
     },
 
     methods: {
+        /**
+         * Retrieve a quote
+         */
         getQuote(type = 'quotd') {
             this.loading = true
             this.quote = null
