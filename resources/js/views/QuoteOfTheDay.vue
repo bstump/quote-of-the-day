@@ -7,6 +7,7 @@
                         @click="getQuote()"
                         type="button"
                         class="btn btn-primary btn-lg mt-3"
+                        :disabled="is_quotd"
                     >
                         Quote of the Day
                     </button>
@@ -58,7 +59,8 @@ export default {
     data() {
         return {
             loading: false,
-            quote: null
+            quote: null,
+            is_quotd: false
         }
     },
 
@@ -69,6 +71,7 @@ export default {
         getQuote(type = 'quotd') {
             this.quote = null
             this.loading = true
+            this.is_quotd = (type === 'quotd') ? true : false
             axios.get('/api/quotes/' + type).then(({ data }) => {
                 this.quote = data
                 this.loading = false

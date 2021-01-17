@@ -1900,11 +1900,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       loading: false,
-      quote: null
+      quote: null,
+      is_quotd: false
     };
   },
   created: function created() {},
@@ -1915,6 +1917,7 @@ __webpack_require__.r(__webpack_exports__);
       var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'quotd';
       this.quote = null;
       this.loading = true;
+      this.is_quotd = type === 'quotd' ? true : false;
       axios.get('/api/quotes/' + type).then(function (_ref) {
         var data = _ref.data;
         _this.quote = data;
@@ -37419,7 +37422,7 @@ var render = function() {
             "button",
             {
               staticClass: "btn btn-primary btn-lg mt-3",
-              attrs: { type: "button" },
+              attrs: { type: "button", disabled: _vm.is_quotd },
               on: {
                 click: function($event) {
                   return _vm.getQuote()
