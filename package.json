@@ -27,6 +27,7 @@
         "vuedraggable": "^2.24.3"
     },
     "dependencies": {
+        "@mathieustan/vue-datepicker": "^0.2.11",
         "axios": "^0.21.1"
     }
 }
