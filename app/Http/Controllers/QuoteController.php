@@ -54,7 +54,7 @@ class QuoteController extends Controller
         if ($query) {
             foreach($quotes['quotes'] as $quote) {
                 if (
-                    stripos($quote['quote'], $query) !== false ||
+                    stripos($quote['text'], $query) !== false ||
                     stripos($quote['author'], $query) !== false
                 ) {
                     $return_quotes[] = $quote;
