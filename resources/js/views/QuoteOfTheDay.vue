@@ -1,13 +1,31 @@
 <template>
-    <div class="row">
+    <div class="row quote-of-the-day">
         <div class="col mt-5">
             <div class="row">
                 <div class="col-sm col-md-6 text-center">
+                    <vue-date-picker
+                        v-if="date"
+                        v-model="date"
+                        @onChange="getQuote()"
+                        :fullscreen-mobile="true"
+                        :no-header="true"
+                    >
+                        <template #activator="{}" class="test-classs">
+                            <button
+                                class="btn btn-primary btn-lg mt-3 center-button"
+                                ref="activator"
+                                type="button"
+                            >
+                                Quote of the Day
+                            </button>
+                        </template>
+                    </vue-date-picker>
                     <button
-                        @click="getQuote()"
-                        type="button"
+                        v-else
+                        @click="getQuote('quotd')"
                         class="btn btn-primary btn-lg mt-3"
-                        :disabled="is_quotd"
+                        ref="activator"
+                        type="button"
                     >
                         Quote of the Day
                     </button>
@@ -55,12 +73,19 @@
 </template>
 
 <script>
+import { VueDatePicker } from '@mathieustan/vue-datepicker'
+import '@mathieustan/vue-datepicker/dist/vue-datepicker.min.css'
+
 export default {
+    components : {
+        VueDatePicker
+    },
+
     data() {
         return {
             loading: false,
-            quote: null,
-            is_quotd: false
+            date: null,
+            quote: null
         }
     },
 
@@ -69,10 +94,13 @@ export default {
 
     methods: {
         getQuote(type = 'quotd') {
-            this.quote = null
             this.loading = true
-            this.is_quotd = (type === 'quotd') ? true : false
-            axios.get('/api/quotes/' + type).then(({ data }) => {
+            this.quote = null
+            let current_date = new Date().toISOString().split('T')[0]
+            this.date = (type === 'random') ? null : ((this.date) ? this.date : current_date)
+            let api_endpoint = (type === 'random') ? '/api/quotes/' + type : '/api/quotes/' + type + '?d=' + this.date
+
+            axios.get(api_endpoint).then(({ data }) => {
                 this.quote = data
                 this.loading = false
             })
@@ -82,4 +110,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.center-button {
+    margin: 0 auto;
+}
 </style>
