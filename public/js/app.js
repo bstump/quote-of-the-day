@@ -1853,9 +1853,74 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  created: function created() {
-    alert('hello');
+  data: function data() {
+    return {
+      loading: false,
+      quote: null
+    };
+  },
+  created: function created() {},
+  methods: {
+    getQuote: function getQuote() {
+      var _this = this;
+
+      var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'quotd';
+      this.quote = null;
+      this.loading = true;
+      axios.get('/api/quotes/' + type).then(function (_ref) {
+        var data = _ref.data;
+        _this.quote = data;
+        _this.loading = false;
+      });
+    }
   }
 });
 
@@ -37346,20 +37411,81 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row home" }, [
-      _c("div", { staticClass: "col-sm-12" }, [
-        _vm._v("\n        Quote of the Day\n    ")
-      ])
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col mt-5" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm col-md-6 text-center" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary btn-lg mt-3",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.getQuote()
+                }
+              }
+            },
+            [_vm._v("\n                    Quote of the Day\n                ")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm col-md-6 text-center" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary btn-lg mt-3",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.getQuote("random")
+                }
+              }
+            },
+            [_vm._v("\n                    Random Quote\n                ")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      !_vm.loading && _vm.quote
+        ? _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-12 col-md-6 offset-md-3 mt-5" }, [
+              _c("blockquote", { staticClass: "blockquote" }, [
+                _c("p", [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.quote.text) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("footer", { staticClass: "blockquote-footer" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(
+                        _vm.quote.author && _vm.quote.author.trim() !== ""
+                          ? _vm.quote.author
+                          : "Unknown"
+                      ) +
+                      "\n                    "
+                  )
+                ])
+              ])
+            ])
+          ])
+        : _c("div", { staticClass: "row" }, [
+            _vm.loading
+              ? _c("div", { staticClass: "col text-center" }, [
+                  _c("em", [
+                    _vm._v("\n                    Loading...\n                ")
+                  ])
+                ])
+              : _vm._e()
+          ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

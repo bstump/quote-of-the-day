@@ -1,15 +1,79 @@
 <template>
-    <div class="row home">
-        <div class="col-sm-12">
-            Quote of the Day
+    <div class="row">
+        <div class="col mt-5">
+            <div class="row">
+                <div class="col-sm col-md-6 text-center">
+                    <button
+                        @click="getQuote()"
+                        type="button"
+                        class="btn btn-primary btn-lg mt-3"
+                    >
+                        Quote of the Day
+                    </button>
+                </div>
+                <div class="col-sm col-md-6 text-center">
+                    <button
+                        @click="getQuote('random')"
+                        type="button"
+                        class="btn btn-primary btn-lg mt-3"
+                    >
+                        Random Quote
+                    </button>
+                </div>
+            </div>
+            <div
+                v-if="!loading && quote"
+                class="row"
+            >
+                <div class="col-sm-12 col-md-6 offset-md-3 mt-5">
+                    <blockquote class="blockquote">
+                        <p>
+                            {{ quote.text }}
+                        </p>
+                        <footer class="blockquote-footer">
+                            {{ (quote.author && quote.author.trim() !== '') ? quote.author : 'Unknown' }}
+                        </footer>
+                    </blockquote>
+                </div>
+            </div>
+            <div
+                v-else
+                class="row"
+            >
+                <div
+                    v-if="loading"
+                    class="col text-center"
+                >
+                    <em>
+                        Loading...
+                    </em>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 export default {
+    data() {
+        return {
+            loading: false,
+            quote: null
+        }
+    },
+
     created() {
-        alert('hello')
+    },
+
+    methods: {
+        getQuote(type = 'quotd') {
+            this.quote = null
+            this.loading = true
+            axios.get('/api/quotes/' + type).then(({ data }) => {
+                this.quote = data
+                this.loading = false
+            })
+        }
     }
 }
 </script>
