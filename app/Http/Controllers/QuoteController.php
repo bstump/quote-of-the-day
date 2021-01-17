@@ -62,7 +62,9 @@ class QuoteController extends Controller
             }
 
             return response()->json(
-                $return_quotes
+                [
+                    'quotes' => $return_quotes,
+                ]
             );
         }
 
